@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // 👈 usamos useNavigate agora
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,30 +13,34 @@ export function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const { login, isAuthenticated } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate(); // 👈
 
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  // ✅ Redirecionar apenas após login ser efetivado
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     const success = login(username, password);
-    
+
     if (success) {
       toast({
-        title: "Login realizado com sucesso!",
-        description: "Bem-vindo ao Sistema de Controle de TI",
+        title: 'Login realizado com sucesso!',
+        description: 'Bem-vindo ao Sistema de Controle de TI',
       });
     } else {
       toast({
-        title: "Erro no login",
-        description: "Usuário ou senha incorretos",
-        variant: "destructive",
+        title: 'Erro no login',
+        description: 'Usuário ou senha incorretos',
+        variant: 'destructive',
       });
     }
-    
+
     setIsLoading(false);
   };
 
@@ -76,15 +80,11 @@ export function Login() {
                 required
               />
             </div>
-            <Button 
-              type="submit" 
-              className="w-full" 
-              disabled={isLoading}
-            >
+            <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? 'Entrando...' : 'Entrar'}
             </Button>
           </form>
-          
+
           <div className="mt-6 text-center">
             <div className="text-sm text-muted-foreground space-y-1">
               <p><strong>Usuários de teste:</strong></p>

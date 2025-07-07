@@ -38,7 +38,7 @@ export function Header() {
               <span className="hidden md:inline">{user?.username}</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="end" className="w-56 bg-[hsl(var(sidebar-foreground))] text-[hsl(var(--sidebar-foreground))]">
             <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>

@@ -49,7 +49,7 @@ export function AppSidebar() {
     >
       <SidebarContent className="bg-sidebar-bg">
         <div className="p-4 border-b border-sidebar-muted">
-          <h2 className={`font-bold text-white ${collapsed ? "text-xs text-center" : "text-lg"}`}>
+          <h2 className={`font-bold text-black ${collapsed ? "text-xs text-center" : "text-lg"}`}>
             {collapsed ? "TI" : "Sistema TI"}
           </h2>
         </div>
@@ -69,8 +69,8 @@ export function AppSidebar() {
                       end 
                       className={getNavClassName}
                     >
-                      <item.icon className={`h-4 w-4 ${collapsed ? "" : "mr-2"}`} />
-                      {!collapsed && <span className="text-white">{item.title}</span>}
+                      <item.icon className={`h-4 w-4 ${collapsed ? "" : "mr-2"} text-primary`} />
+                      {!collapsed && <span className="text-black">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
