@@ -32,9 +32,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = (username: string, password: string): boolean => {
+    console.log('Tentativa de login:', { username, password });
+    console.log('Usuários disponíveis:', defaultUsers);
+    
     const foundUser = defaultUsers.find(
       u => u.username === username && u.password === password
     );
+
+    console.log('Usuário encontrado:', foundUser);
 
     if (foundUser) {
       const userData = { 
@@ -44,8 +49,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       };
       setUser(userData);
       localStorage.setItem('ti-system-user', JSON.stringify(userData));
+      console.log('Login bem-sucedido, dados salvos:', userData);
       return true;
     }
+    console.log('Login falhou - usuário não encontrado');
     return false;
   };
 
